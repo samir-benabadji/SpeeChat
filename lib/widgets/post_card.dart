@@ -106,6 +106,7 @@ class _PostCardState extends State<PostCard> {
                         Text(
                           widget.snap['username'].toString(),
                           style: const TextStyle(
+                            color: Colors.lightBlue,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -151,7 +152,10 @@ class _PostCardState extends State<PostCard> {
                             },
                           );
                         },
-                        icon: const Icon(Icons.more_vert),
+                        icon: const Icon(
+                          Icons.more_vert,
+                          color: Colors.lightBlue,
+                        ),
                       )
                     : Container(),
               ],
@@ -187,7 +191,7 @@ class _PostCardState extends State<PostCard> {
                     isAnimating: isLikeAnimating,
                     child: const Icon(
                       Icons.favorite,
-                      color: Colors.white,
+                      color: Color(0xff044404),
                       size: 100,
                     ),
                     duration: const Duration(
@@ -205,6 +209,7 @@ class _PostCardState extends State<PostCard> {
           ),
           // LIKE, COMMENT SECTION OF THE POST
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
               LikeAnimation(
                 isAnimating: widget.snap['likes'].contains(user.uid),
@@ -213,10 +218,11 @@ class _PostCardState extends State<PostCard> {
                   icon: widget.snap['likes'].contains(user.uid)
                       ? const Icon(
                           Icons.favorite,
-                          color: Colors.red,
+                          color: Color(0xff044404),
                         )
                       : const Icon(
-                          Icons.favorite_border,
+                          Icons.favorite_outline,
+                          color: Color(0xff044404),
                         ),
                   onPressed: () => FireStoreMethods().likePost(
                     widget.snap['postId'].toString(),
@@ -228,6 +234,7 @@ class _PostCardState extends State<PostCard> {
               IconButton(
                 icon: const Icon(
                   Icons.comment_outlined,
+                  color: Color(0xff044404),
                 ),
                 onPressed: () => Navigator.of(context).push(
                   MaterialPageRoute(
@@ -239,15 +246,10 @@ class _PostCardState extends State<PostCard> {
               ),
               IconButton(
                   icon: const Icon(
-                    Icons.send,
+                    Icons.chat_outlined,
+                    color: Color(0xff044404),
                   ),
                   onPressed: () {}),
-              Expanded(
-                  child: Align(
-                alignment: Alignment.bottomRight,
-                child: IconButton(
-                    icon: const Icon(Icons.bookmark_border), onPressed: () {}),
-              ))
             ],
           ),
           //DESCRIPTION AND NUMBER OF COMMENTS
@@ -264,7 +266,10 @@ class _PostCardState extends State<PostCard> {
                         .copyWith(fontWeight: FontWeight.w800),
                     child: Text(
                       '${widget.snap['likes'].length} likes',
-                      style: Theme.of(context).textTheme.bodyText2,
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyText2!
+                          .copyWith(color: Colors.indigo),
                     )),
                 Container(
                   width: double.infinity,
@@ -278,44 +283,51 @@ class _PostCardState extends State<PostCard> {
                         TextSpan(
                           text: widget.snap['username'].toString(),
                           style: const TextStyle(
+                            color: Colors.lightBlue,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         TextSpan(
-                          text: ' ${widget.snap['description']}',
-                        ),
+                            text: ' ${widget.snap['description']}',
+                            style: TextStyle(color: Colors.indigo)),
                       ],
                     ),
                   ),
                 ),
-                InkWell(
-                  child: Container(
-                    child: Text(
-                      'View all $commentLen comments',
-                      style: const TextStyle(
-                        fontSize: 16,
-                        color: secondaryColor,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    InkWell(
+                      child: Container(
+                        child: Text(
+                          'View all $commentLen comments',
+                          style: const TextStyle(
+                            fontSize: 16,
+                            color: Colors.indigo,
+                          ),
+                        ),
+                        padding: const EdgeInsets.symmetric(vertical: 4),
+                      ),
+                      onTap: () => Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => CommentsScreen(
+                            postId: widget.snap['postId'].toString(),
+                          ),
+                        ),
                       ),
                     ),
-                    padding: const EdgeInsets.symmetric(vertical: 4),
-                  ),
-                  onTap: () => Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => CommentsScreen(
-                        postId: widget.snap['postId'].toString(),
+                    Container(
+                      alignment: Alignment.bottomRight,
+                      child: Text(
+                        DateFormat.yMMMd()
+                            .format(widget.snap['datePublished'].toDate()),
+                        style: const TextStyle(
+                          color: Colors.indigo,
+                        ),
                       ),
+                      padding: const EdgeInsets.symmetric(vertical: 4),
                     ),
-                  ),
-                ),
-                Container(
-                  child: Text(
-                    DateFormat.yMMMd()
-                        .format(widget.snap['datePublished'].toDate()),
-                    style: const TextStyle(
-                      color: secondaryColor,
-                    ),
-                  ),
-                  padding: const EdgeInsets.symmetric(vertical: 4),
+                  ],
                 ),
               ],
             ),
