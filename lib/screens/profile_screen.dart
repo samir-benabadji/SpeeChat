@@ -77,6 +77,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               backgroundColor: mobileBackgroundColor,
               title: Text(
                 userData['username'],
+                style: TextStyle(color: Colors.lightBlue),
               ),
               centerTitle: false,
             ),
@@ -186,6 +187,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         child: Text(
                           userData['username'],
                           style: TextStyle(
+                            color: Colors.lightBlue,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -197,6 +199,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                         child: Text(
                           userData['bio'],
+                          style: TextStyle(color: Colors.indigo),
                         ),
                       ),
                     ],
