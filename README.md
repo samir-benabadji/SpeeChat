@@ -2,9 +2,9 @@
 
 A completely Responsive Application, Works on Android, iOS & Web! 
 
-| General | Home | Sign in / Sign up |
-|--|--|--|
-| ![General](assets/SPSCR1.png) | ![Home](assets/SPSCR2.png) | ![Sign in / Sign up](assets/SPSCR3.png) |
+| Home | Sign in / Sign up |
+|--|--|
+| ![Home](assets/SPSCR2.png) | ![Sign in / Sign up](assets/SPSCR3.png) |
 
 ## Features
 - Responsive UI
